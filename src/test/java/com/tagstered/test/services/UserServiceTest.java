@@ -31,7 +31,7 @@ import com.tagstered.spring.config.HibernateConfig;
 @ContextConfiguration(classes = { ApplicationConfig.class, HibernateConfig.class })
 @TestPropertySource(locations = "classpath:test.properties")
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class, TransactionDbUnitTestExecutionListener.class})
-@DatabaseSetup("user-dataset.xml")
+@DatabaseSetup("/user-dataset.xml")
 public class UserServiceTest {
 
 	/**

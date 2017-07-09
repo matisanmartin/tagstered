@@ -8,17 +8,19 @@ import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.tagstered.dao.UserDao;
 import com.tagstered.model.User;
 
-@Repository
+@Repository("userDao")
 public class UserHibernateDao implements UserDao {
 	
 	/**
 	 * 
 	 */
+	@Autowired
 	private SessionFactory sessionFactory;
 	
 	/**

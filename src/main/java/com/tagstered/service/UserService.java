@@ -12,8 +12,16 @@ public interface UserService {
 	/**
 	 * @param id
 	 * @return
+	 * @throws TagsteredBusinessException 
 	 */
-	User findById(String id);
+	User findById(Integer id) throws TagsteredBusinessException;
+	
+	/**
+	 * @param userId
+	 * @return
+	 * @throws TagsteredBusinessException
+	 */
+	User findByUserId(String userId) throws TagsteredBusinessException;
 	
 	/**
 	 * @param user

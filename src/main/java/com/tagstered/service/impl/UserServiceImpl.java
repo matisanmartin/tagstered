@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.tagstered.dao.UserDao;
 import com.tagstered.exception.TagsteredBusinessException;
@@ -17,6 +18,7 @@ import com.tagstered.service.UserService;
  *
  */
 @Service("userService")
+@Transactional
 public class UserServiceImpl implements UserService {
 
 	/**
@@ -34,14 +36,10 @@ public class UserServiceImpl implements UserService {
 	 * @see com.tagstered.service.UserService#findById(java.lang.String)
 	 */
 	@Override
-	public User findById(String id) {
-		User user = new User();
-		user.setUserId(id);
-		user.setId(1);
-		Tag tag = new Tag();
-		tag.setTagName("test");
-		user.setFollowedTags(new ArrayList<Tag>());
-		user.getFollowedTags().add(tag);
+	public User findById(Integer id) throws TagsteredBusinessException {
+		User user = userDao.findById(id);
+		if(user == null)
+			throw new TagsteredBusinessException("User doesnt exist");
 		return user;
 	}
 
@@ -117,6 +115,17 @@ public class UserServiceImpl implements UserService {
 		newTag.setTagName(tag);
 		user.getFollowedTags().add(newTag);
 		userDao.update(user);
+		return user;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.tagstered.service.UserService#findByUserId(java.lang.String)
+	 */
+	@Override
+	public User findByUserId(String userId) throws TagsteredBusinessException {
+		User user = userDao.findByUserId(userId);
+		if(user == null)
+			throw new TagsteredBusinessException("User doesnt exist");
 		return user;
 	}
 

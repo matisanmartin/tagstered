@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AvailableSettings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -22,8 +23,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @Configuration
 @EnableTransactionManagement
+@ComponentScan({"com.tagstered.spring.config"})
 @PropertySource(value = { "classpath:application.properties" })
-public class HIbernateConfig {
+public class HibernateConfig {
 
 	/**
 	 * 
@@ -48,7 +50,7 @@ public class HIbernateConfig {
 	@Bean
 	public LocalSessionFactoryBean getSessionFactory() {
 		LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-		sessionFactory.setDataSource(getDataSource());
+		sessionFactory.setDataSource(dataSource());
 		sessionFactory.setPackagesToScan(new String[] { "com.tagstered" });
 		sessionFactory.setHibernateProperties(getHibernateProperties());
 		return sessionFactory;
@@ -57,7 +59,8 @@ public class HIbernateConfig {
 	/**
 	 * @return
 	 */
-	private DataSource getDataSource() {
+	@Bean
+	public DataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName(env.getRequiredProperty("tagstered.db.driver"));
 		dataSource.setUrl(env.getRequiredProperty("tagstered.db.url"));

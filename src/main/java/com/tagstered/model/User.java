@@ -39,7 +39,7 @@ public class User {
 	/**
 	 * 
 	 */
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "ID_USER", referencedColumnName = "ID")
 	Collection<Tag> followedTags;
 

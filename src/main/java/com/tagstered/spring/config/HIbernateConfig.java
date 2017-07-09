@@ -16,14 +16,25 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+/**
+ * @author matias
+ *
+ */
 @Configuration
 @EnableTransactionManagement
 @PropertySource(value = { "classpath:application.properties" })
 public class HIbernateConfig {
 
+	/**
+	 * 
+	 */
 	@Autowired
 	private Environment env;
 
+	/**
+	 * @param sessionFactory
+	 * @return
+	 */
 	@Bean
 	public HibernateTransactionManager transactionManager(SessionFactory sessionFactory) {
 		HibernateTransactionManager transactionManager = new HibernateTransactionManager();
@@ -31,6 +42,9 @@ public class HIbernateConfig {
 		return transactionManager;
 	}
 
+	/**
+	 * @return
+	 */
 	@Bean
 	public LocalSessionFactoryBean getSessionFactory() {
 		LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
@@ -40,6 +54,9 @@ public class HIbernateConfig {
 		return sessionFactory;
 	}
 
+	/**
+	 * @return
+	 */
 	private DataSource getDataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName(env.getRequiredProperty("tagstered.db.driver"));
@@ -50,6 +67,9 @@ public class HIbernateConfig {
 
 	}
 
+	/**
+	 * @return
+	 */
 	private Properties getHibernateProperties() {
 		Properties properties = new Properties();
 		properties.put(AvailableSettings.DIALECT, env.getRequiredProperty("hibernate.dialect"));

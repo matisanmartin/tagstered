@@ -16,16 +16,28 @@ import com.tagstered.model.User;
 @Repository
 public class UserHibernateDao implements UserDao {
 	
+	/**
+	 * 
+	 */
 	private SessionFactory sessionFactory;
 	
+	/**
+	 * @param sessionFactory
+	 */
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
 	
+	/**
+	 * @return
+	 */
 	private Session getSession() {
 		return sessionFactory.getCurrentSession();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.tagstered.dao.UserDao#findByUserId(java.lang.String)
+	 */
 	@Override
 	public User findByUserId(String userId) {
 		CriteriaBuilder builder = getSession().getCriteriaBuilder();
@@ -37,23 +49,35 @@ public class UserHibernateDao implements UserDao {
 		return byUserId.get(0);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.tagstered.dao.UserDao#findById(java.lang.Integer)
+	 */
 	@Override
 	public User findById(Integer id) {
 		return getSession().get(User.class, id);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.tagstered.dao.UserDao#create(com.tagstered.model.User)
+	 */
 	@Override
 	public User create(User user) {
 		getSession().save(user);
 		return user;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.tagstered.dao.UserDao#update(com.tagstered.model.User)
+	 */
 	@Override
 	public User update(User user) {
 		getSession().update(user);
 		return user;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.tagstered.dao.UserDao#delete(com.tagstered.model.User)
+	 */
 	@Override
 	public void delete(User user) {
 		getSession().delete(user);

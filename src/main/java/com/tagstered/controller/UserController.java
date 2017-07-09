@@ -12,17 +12,31 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tagstered.model.User;
 import com.tagstered.service.UserService;
 
+/**
+ * @author matias
+ *
+ */
 @RestController
 public class UserController {
-	
+
+	/**
+	 * 
+	 */
 	@Autowired
 	private UserService userService;
-	
+
+	/**
+	 * @return
+	 */
 	@RequestMapping("/")
 	public String welcome() {
 		return "Welcome to Tagstered";
 	}
-	
+
+	/**
+	 * @param userId
+	 * @return
+	 */
 	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<User> user(@PathVariable("id") String userId) {
 		return new ResponseEntity<User>(userService.findById(userId), HttpStatus.OK);

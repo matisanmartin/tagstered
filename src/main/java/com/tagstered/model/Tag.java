@@ -5,47 +5,55 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+/**
+ * @author matias
+ *
+ */
 @Entity
 @Table(name = "TAG")
 public class Tag {
-	
+
+	/**
+	 * 
+	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
 	private Integer id;
-	
+
+	/**
+	 * 
+	 */
 	@Column(name = "TAG_NAME", nullable = false)
 	private String tagName;
-	
-	@ManyToOne
-	private User user;
-	
-	
+
+	/**
+	 * @return
+	 */
 	public Integer getId() {
 		return id;
 	}
 
+	/**
+	 * @param id
+	 */
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
+	/**
+	 * @return
+	 */
 	public String getTagName() {
 		return tagName;
 	}
 
+	/**
+	 * @param tagName
+	 */
 	public void setTagName(String tagName) {
 		this.tagName = tagName;
 	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-	
-
 }

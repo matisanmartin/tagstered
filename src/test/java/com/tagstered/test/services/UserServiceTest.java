@@ -99,5 +99,52 @@ public class UserServiceTest {
 		Assert.assertNotNull(user);
 		Assert.assertEquals("matism", user.getUserId());
 	}
+	
+	/**
+	 * @throws TagsteredBusinessException
+	 */
+	@SuppressWarnings("unused")
+	@Test(expected = TagsteredBusinessException.class)
+	public void testFindByIdNonExisting() throws TagsteredBusinessException {
+		User user = userService.findById(500000);
+	}
+	
+	/**
+	 * @throws TagsteredBusinessException
+	 */
+	@SuppressWarnings("unused")
+	@Test(expected = TagsteredBusinessException.class)
+	public void testFindByUserIdNonExisting() throws TagsteredBusinessException {
+		User user = userService.findByUserId("NonExisting");
+	}
+	
+	/**
+	 * @throws TagsteredBusinessException
+	 */
+	@SuppressWarnings("unused")
+	@Test(expected = TagsteredBusinessException.class)
+	public void testAddTagToUserAndUserAlreadyHasIt() throws TagsteredBusinessException {
+		User updated = userService.addFollowedTag(1, "test");
+	}
+	
+	/**
+	 * @throws TagsteredBusinessException
+	 */
+	@SuppressWarnings("unused")
+	@Test(expected = Exception.class)
+	public void testCreateAlreadyExistingUser() throws TagsteredBusinessException {
+		User toCreate = userService.findById(1);
+		User created = userService.create(toCreate);
+	}
+	
+	/**
+	 * @throws TagsteredBusinessException
+	 */
+	@SuppressWarnings("unused")
+	@Test(expected = TagsteredBusinessException.class)
+	public void testUpdateNonExistingUser() throws TagsteredBusinessException {
+		User user = new User();
+		User updated = userService.update(user);
+	}
 
 }

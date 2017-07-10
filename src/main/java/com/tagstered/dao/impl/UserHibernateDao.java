@@ -48,7 +48,10 @@ public class UserHibernateDao implements UserDao {
 		criteria.select(root);
 		criteria.where( builder.equal(root.get("userId"), userId));
 		List<User> byUserId = getSession().createQuery(criteria).getResultList();
-		return byUserId.get(0);
+		if(byUserId != null && !byUserId.isEmpty())
+			return byUserId.get(0);
+		else
+			return null;
 	}
 
 	/* (non-Javadoc)

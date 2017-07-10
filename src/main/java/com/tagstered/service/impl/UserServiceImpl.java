@@ -61,9 +61,13 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	public User update(User user) throws TagsteredBusinessException {
-		User existing = userDao.findById(user.getId());
-		if (existing == null)
+		User existing = null;
+		try {
+			existing = userDao.findById(user.getId());
+		} catch(Exception e) {
+			logger.error("User doesnt exist or id is null", e);
 			throw new TagsteredBusinessException("User doesnt exist");
+		}
 
 		existing.setUserId(user.getUserId());
 

@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	<h1>User</h1>
+	<input type="text" data-ng-model="id"/>
 </body>
 </html>

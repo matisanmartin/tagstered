@@ -82,15 +82,14 @@
 								</div>
 							</div>
 							<div class="panel-footer text-center">
-								<div class="row text-center">
-									{{currentIgUser.website}}
-								</div>
+								<div class="row text-center">{{currentIgUser.website}}</div>
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<input name="newTag" type="text" class="form-group"
-							data-ng-model="newTag" placeholder="Search Tag" ng-keyup="$event.keyCode == 13 && addNewTag(newTag)" />
+							data-ng-model="newTag" placeholder="Search Tag"
+							ng-keyup="$event.keyCode == 13 && addNewTag(newTag)" />
 						<button class="btn btn-primary" ng-click="addNewTag(newTag)">Follow!</button>
 						<table class="table table-striped">
 							<thead>

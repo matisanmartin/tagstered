@@ -39,27 +39,74 @@
 			<div class="row">
 				<div class="col-xs-4 col-md-4 col-lg-4">
 
-					<input name="newTag" type="text" class="form-group"
-						data-ng-model="newTag" placeholder="Search Tag" />
-					<button class="btn btn-primary" ng-click="addNewTag(newTag)">Follow!</button>
-					<table class="table table-striped">
-						<thead>
-							<tr>
-								<th class="info">Followed tags</th>
-								<th class="info"></th>
-								<th class="info"></th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr ng-repeat="t in tags">
-								<td>{{t.tagName}}</td>
-								<td><button class="btn btn-success"
-										ng-click="showTagRecentMedia(t.tagName)">Show recent</button></td>
-								<td><button class="btn btn-danger"
-										ng-click="removeTag(t.tagName)">Remove</button>
-							</tr>
-						</tbody>
-					</table>
+					<div class="row">
+						<div class="panel panel-primary">
+							<div class="panel-heading">
+								<div class="row">
+									<div class="col-xs-3 col-md-3 col-lg-3">
+										<img ng-src="{{currentIgUser.profile_picture}}"
+											class="img-circle" width="60" height="60">
+									</div>
+									<div class="col-xs-9 col-md-9 col-lg-9">
+										<div class="row" style="height: 30px;">
+											<strong>{{currentIgUser.username}}</strong>
+										</div>
+										<div class="row">{{currentIgUser.bio}}</div>
+									</div>
+								</div>
+							</div>
+							<div class="panel-body text-center">
+								<div class="col-xs-4 col-md-4 col-lg-4">
+									<div class="row text-center<">
+										<span><strong>{{currentIgUser.counts.media}}</strong></span>
+									</div>
+									<div class="row text-center">
+										<span><strong>Photos</strong></span>
+									</div>
+								</div>
+								<div class="col-xs-4 col-md-4 col-lg-4">
+									<div class="row text-center">
+										<span><strong>{{currentIgUser.counts.followed_by}}</strong></span>
+									</div>
+									<div class="row text-center">
+										<strong>Followers</strong>
+									</div>
+								</div>
+								<div class="col-xs-4 col-md-4 col-lg-4">
+									<div class="row text-center">
+										<span><strong>{{currentIgUser.counts.follows}}</strong></span>
+									</div>
+									<div class="row text-center">
+										<strong>Following</strong>
+									</div>
+								</div>
+							</div>
+							<div class="panel-footer text-center"></div>
+						</div>
+					</div>
+					<div class="row">
+						<input name="newTag" type="text" class="form-group"
+							data-ng-model="newTag" placeholder="Search Tag" />
+						<button class="btn btn-primary" ng-click="addNewTag(newTag)">Follow!</button>
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th class="info">Followed tags</th>
+									<th class="info"></th>
+									<th class="info"></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="t in tags">
+									<td>{{t.tagName}}</td>
+									<td><button class="btn btn-success"
+											ng-click="showTagRecentMedia(t.tagName)">Show recent</button></td>
+									<td><button class="btn btn-danger"
+											ng-click="removeTag(t.tagName)">Remove</button>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 				</div>
 				<div class="col-xs-8 col-md-8 col-lg-8">
 					<div ng-repeat="i in images">
@@ -102,6 +149,8 @@
 		src="${pageContext.request.contextPath}/static/service/instagram-tag-service.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/static/service/instagram-auth-service.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/static/service/instagram-user-service.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/static/directive/scroll.js"></script>
 </body>

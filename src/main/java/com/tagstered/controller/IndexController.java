@@ -17,26 +17,6 @@ public class IndexController {
 	 */
 	@RequestMapping(method = RequestMethod.GET)
     public String getIndexPage() {
-        return "login";
+        return "tagstered";
     }
-	
-	@RequestMapping(value = "/user", method = RequestMethod.GET)
-	public String getUserPage() {
-		return "user";
-	}
-	
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String getLoginPage() {
-		return "login";
-	}
-	
-	@RequestMapping(value = "/tag", method = RequestMethod.GET)
-	public String getTagPage() {
-		return "tag";
-	}
-	
-	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public String getHomePage() {
-		return "home";
-	}
 }

@@ -6,13 +6,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**
  * @author matias
  *
  */
 @Entity
-@Table(name = "TAG")
+@Table(name = "TAG", uniqueConstraints = { @UniqueConstraint(columnNames = { "TAG_NAME", "ID_USER" }) })
 public class Tag {
 
 	/**
@@ -28,6 +29,20 @@ public class Tag {
 	 */
 	@Column(name = "TAG_NAME", nullable = false)
 	private String tagName;
+
+	/**
+	 * 
+	 */
+	public Tag() {
+		// Default constructor
+	}
+
+	/**
+	 * @param tagName
+	 */
+	public Tag(String tagName) {
+		this.tagName = tagName;
+	}
 
 	/**
 	 * @return

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
-	<USER ID="1" USER_ID="matism"/>
+	<USER ID="1" USER_ID="matism" TOKEN="m4t145s4nm4R71NaC0s74"/>
 	<TAG ID="1" TAG_NAME="test" ID_USER="1"/> 
 </dataset>

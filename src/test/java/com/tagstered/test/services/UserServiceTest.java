@@ -1,7 +1,5 @@
 package com.tagstered.test.services;
 
-import java.util.ArrayList;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,7 +14,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import com.github.springtestdbunit.TransactionDbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.tagstered.exception.TagsteredBusinessException;
-import com.tagstered.model.Tag;
 import com.tagstered.model.User;
 import com.tagstered.service.UserService;
 import com.tagstered.spring.config.ApplicationConfig;
@@ -53,18 +50,9 @@ public class UserServiceTest {
 	 */
 	@Test
 	public void testCreateUser() throws TagsteredBusinessException {
-		User user = new User();
-		user.setUserId("test");
-		user.setFollowedTags(new ArrayList<>());
-		Tag tag = new Tag();
-		tag.setTagName("test");
-		user.getFollowedTags().add(tag);
-
-		User created = userService.create(user);
+		User created = userService.create("test", "q6wd1qd61q6dq16dqwd8q9d9wqq9q8");
 		Assert.assertNotNull(created);
-		Assert.assertEquals(user.getUserId(), created.getUserId());
-		Assert.assertNotNull(created.getFollowedTags());
-		Assert.assertEquals(user.getFollowedTags().size(), created.getFollowedTags().size());
+		Assert.assertEquals("test", created.getUserId());
 	}
 	
 	/**
@@ -134,7 +122,7 @@ public class UserServiceTest {
 	@Test(expected = Exception.class)
 	public void testCreateAlreadyExistingUser() throws TagsteredBusinessException {
 		User toCreate = userService.findById(1);
-		User created = userService.create(toCreate);
+		User created = userService.create(toCreate.getUserId(), "qwdq1w6dqw6dqw6dq1wdqw");
 	}
 	
 	/**
@@ -146,5 +134,68 @@ public class UserServiceTest {
 		User user = new User();
 		User updated = userService.update(user);
 	}
+	
+	/**
+	 * @throws TagsteredBusinessException
+	 */
+	@Test
+	public void testRemoveFollowedTag() throws TagsteredBusinessException {
+		User withNoFollowedTags = userService.removeFollowedTag(1, "test");
+		Assert.assertNotNull(withNoFollowedTags);
+		Assert.assertNotNull(withNoFollowedTags.getFollowedTags());
+		Assert.assertTrue(withNoFollowedTags.getFollowedTags().isEmpty());
+	}
+	
+	/**
+	 * @throws TagsteredBusinessException
+	 */
+	@SuppressWarnings("unused")
+	@Test(expected = TagsteredBusinessException.class)
+	public void testRemoveFollowedTagNonExistingInList() throws TagsteredBusinessException {
+		User withError = userService.removeFollowedTag(1, "test2");
+	}
+	
+	/**
+	 * @throws TagsteredBusinessException
+	 */
+	@SuppressWarnings("unused")
+	@Test(expected = TagsteredBusinessException.class)
+	public void testRemoveFollowedTagWhenThereAreNoTags() throws TagsteredBusinessException {
+		User created = userService.create("anotherTestUser", "asd12ed211hd1d129hd129udh12");
+		User updatedWithError = userService.removeFollowedTag(created.getId(), "test");
+	}
+	
+	/**
+	 * @throws TagsteredBusinessException
+	 */
+	@Test(expected = TagsteredBusinessException.class)
+	public void testRemoveFollowedTagWithNullUserId() throws TagsteredBusinessException {
+		userService.removeFollowedTag(null, "test");
+	}
+	
+	/**
+	 * @throws TagsteredBusinessException
+	 */
+	@Test(expected = TagsteredBusinessException.class)
+	public void testRemoveFollowedTagWIthNullTagName() throws TagsteredBusinessException {
+		userService.removeFollowedTag(1, null);
+	}
+	
+	/**
+	 * @throws TagsteredBusinessException
+	 */
+	@Test(expected = TagsteredBusinessException.class)
+	public void testRemoveFollowedTagWithEmptyTagName() throws TagsteredBusinessException {
+		userService.removeFollowedTag(1, "");
+	}
+	
+	/**
+	 * @throws TagsteredBusinessException
+	 */
+	@Test(expected = TagsteredBusinessException.class)
+	public void testRemoveFollowedTagWFromNonExistingUser() throws TagsteredBusinessException {
+		userService.removeFollowedTag(11111111, "test");
+	}
+	
 
 }

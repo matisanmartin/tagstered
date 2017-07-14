@@ -24,11 +24,12 @@ public interface UserService {
 	User findByUserId(String userId) throws TagsteredBusinessException;
 	
 	/**
-	 * @param user
+	 * @param userName
+	 * @param token
 	 * @return
 	 * @throws TagsteredBusinessException
 	 */
-	User create(User user) throws TagsteredBusinessException;
+	User create(String userName, String token) throws TagsteredBusinessException;
 	
 	/**
 	 * @param user
@@ -36,6 +37,14 @@ public interface UserService {
 	 * @throws TagsteredBusinessException
 	 */
 	User update(User user) throws TagsteredBusinessException;
+	
+	/**
+	 * @param userName
+	 * @param token
+	 * @return
+	 * @throws TagsteredBusinessException 
+	 */
+	User createOrUpdateUser(String userName, String token) throws TagsteredBusinessException;
 	
 	/**
 	 * @param user
@@ -50,5 +59,13 @@ public interface UserService {
 	 * @throws TagsteredBusinessException
 	 */
 	User addFollowedTag(Integer userId, String tag) throws TagsteredBusinessException;
+
+	/**
+	 * @param userId
+	 * @param tagName
+	 * @return
+	 * @throws TagsteredBusinessException 
+	 */
+	User removeFollowedTag(Integer userId, String tagName) throws TagsteredBusinessException;
 
 }

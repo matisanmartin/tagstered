@@ -33,13 +33,19 @@ public class User {
 	/**
 	 * 
 	 */
-	@Column(name = "USER_ID", unique = true)
+	@Column(name = "USER_ID", unique = true, nullable = false)
 	String userId;
+	
+	/**
+	 * 
+	 */
+	@Column(name = "TOKEN", unique = true, nullable = false)
+	String token;
 
 	/**
 	 * 
 	 */
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval=true )
 	@JoinColumn(name = "ID_USER", referencedColumnName = "ID")
 	Collection<Tag> followedTags;
 
@@ -83,5 +89,23 @@ public class User {
 	 */
 	public void setFollowedTags(Collection<Tag> followedTags) {
 		this.followedTags = followedTags;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + "]";
 	} 
+	
+	
 }		
